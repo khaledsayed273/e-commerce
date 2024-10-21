@@ -26,7 +26,7 @@ function Card({ item }) {
     }
 
     return (
-        <div className='h-[350px] rounded-md '>
+        <div className='h-[350px] rounded-md max-w-[320px] mx-auto'>
             <div className='relative group overflow-hidden'>
                 <span className='absolute bg-red1 text-white z-10 py-1 px-3.5 rounded-md top-3 left-3 text-sm'>-{Math.round(item.discountPercentage)}%</span>
                 <Link href={"/"} className='relative block w-full h-[250px] bg-[#F5F5F5] '>
