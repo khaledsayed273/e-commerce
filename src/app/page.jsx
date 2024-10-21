@@ -38,9 +38,10 @@ export default async function Home() {
         <div className="my-5 md:my-20">
           <BestSellProducts baseUrl={process.env.baseUrl} />
         </div>
-        <div className="flex justify-center">
-          <Link href={"/"}>
+        <div className="flex  justify-center">
+          <Link className="w-full relative h-[270px] md:h-[350px] lg:h-[450px] inline-block" href={"/"}>
             <Image
+              fill
               sizes="(min-width: 808px) 50vw, 100vw"
               placeholder='blur'
               src={adsCover}
