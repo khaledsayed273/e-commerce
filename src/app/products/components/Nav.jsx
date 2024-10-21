@@ -1,9 +1,11 @@
 "use client"
 import Link from 'next/link'
-import { usePathname } from 'next/navigation';
-import React, { useCallback, useEffect, useRef, useState } from 'react'
+import { useParams, usePathname } from 'next/navigation';
+import React, { useEffect, useRef, useState } from 'react'
 
-function Nav({ category, categoriesData }) {
+function Nav({ categoriesData }) {
+
+    const {category}= useParams()
 
     const pathName = usePathname()
     const scrollRef = useRef(null);

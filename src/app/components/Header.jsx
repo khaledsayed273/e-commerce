@@ -10,8 +10,8 @@ function Header() {
             href: "/"
         },
         {
-            name: "Contact",
-            href: "/contact"
+            name: "Products",
+            href: "/products"
         },
         {
             name: "About",
