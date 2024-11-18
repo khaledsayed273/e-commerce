@@ -1,0 +1,31 @@
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 25px 0;
+    user-select: none;
+}
+
+.pagination li {
+    margin: 8px !important;
+    border: 1px solid rgb(221, 218, 218);
+    border-radius: 5px;
+}
+
+.pagination li:hover {
+    opacity: 0.8;
+}
+
+.pagination li a {
+    padding: 7px 14px !important;
+    display: block !important;
+    font-weight: 500;
+    font-size: 13px;
+}
+
+
+
+.pagination li.active {
+    background-color: #db4444 !important;
+    color: white;
+}
