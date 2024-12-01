@@ -44,7 +44,7 @@ export default async function Home() {
         <div className="my-5 md:my-10">
           <h2 className='text-lg md:text-2xl font-semibold text-red1 mb-7'>Related Products</h2>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-10">
-            {data.products.map((item) => (
+            {data?.products?.map((item) => (
               <div key={item.id}>
                 <Card item={item} />
               </div>
