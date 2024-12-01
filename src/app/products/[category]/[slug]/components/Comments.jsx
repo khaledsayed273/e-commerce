@@ -26,9 +26,9 @@ function Comments({ comments }) {
             <h2 className="text-lg font-bold mb-4">Comments</h2>
             <div className="grid md:grid-cols-2 gap-5 mt-7">
                 {comments.map((item, index) => (
-                    <div key={index} className="bg-white p-4 rounded-lg shadow-md shadow-gray-500">
+                    <div key={index} className="bg-white dark:bg-cardDark  p-4 rounded-lg  shadow-md shadow-gray-500 dark:shadow-gray-900">
                         <h3 className="md:text-lg font-bold">{item.reviewerName}</h3>
-                        <p className="text-gray-700 text-sm my-2">
+                        <p className="text-gray-700 dark:text-gray-400 text-sm my-2">
                             Posted on {new Date(item.date).toISOString().split('T')[0]}
                         </p>
                         <div className='flex my-3'>
@@ -36,7 +36,7 @@ function Comments({ comments }) {
                                 index < Math.round(item.rating) ? <RatedIcon key={index} /> : <UnratedIcon key={index} />
                             ))}
                         </div>
-                        <p className="text-gray-700 text-sm md:text-base">
+                        <p className="text-gray-700 dark:text-gray-400 text-sm md:text-base">
                             {item.comment}
                         </p>
                     </div>

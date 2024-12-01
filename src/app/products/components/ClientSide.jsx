@@ -27,6 +27,14 @@ function ClientSide({ baseUrl }) {
         setCurrentPage(event.selected * 20);
     }, [])
 
+    let timeout;
+    const handleSearch = (value) => {
+        clearTimeout(timeout);
+        timeout = setTimeout(() => {
+            umami.track(`search`, { value });
+            setSearch(value);
+        }, 1000);
+    }
 
     useEffect(() => {
         const getProducts = async () => {
@@ -36,7 +44,7 @@ function ClientSide({ baseUrl }) {
                 const res = await req.json()
                 return setData(res)
             } catch (e) {
-                return e
+                return false
             } finally {
                 setLoading(false)
             }
@@ -52,7 +60,7 @@ function ClientSide({ baseUrl }) {
                     <div className="absolute inset-y-0 start-0 flex items-center pointer-events-none z-20 ps-4">
                         <svg className="flex-shrink-0 size-4 text-gray-400" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8" /><path d="m21 21-4.3-4.3" /></svg>
                     </div>
-                    <input onChange={(e) => setSearch(e.target.value)} type="text" id="icon" name="icon" className="py-2 outline-none border-2 px-4 ps-11 block w-full border-gray-500 rounded-lg text-sm focus:border-red1 focus:ring-red1 disabled:opacity-50 disabled:pointer-events-none" placeholder="Search" />
+                    <input onChange={(e) => handleSearch(e.target.value)} type="text" id="icon" name="icon" className="py-2 outline-none border-2 px-4 ps-11 block w-full border-gray-500 rounded-lg text-sm focus:border-red1 focus:ring-red1 disabled:opacity-50 disabled:pointer-events-none dark:text-white dark:bg-cardDark" placeholder="Search" />
                 </div>
             </div>
             {loading ? (
@@ -64,7 +72,7 @@ function ClientSide({ baseUrl }) {
                 </div>
             ) : (
                 <>
-                    {data.products.length > 0 ? (
+                    {data?.products?.length > 0 ? (
                         <div className="grid mb-10 min-h-[60vh] sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-10">
                             {data?.products?.map((item) => (
                                 <div key={item.id}>

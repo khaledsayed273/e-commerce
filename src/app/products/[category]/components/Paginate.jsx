@@ -1,7 +1,6 @@
 "use client"
 import React from 'react'
 import ReactPaginate from 'react-paginate'
-import style from "./paginate.module.css"
 
 function Paginate({ data, page, handlePageClick }) {
     return (
@@ -15,8 +14,7 @@ function Paginate({ data, page, handlePageClick }) {
             pageCount={Math.ceil(data.total / 20)}
             previousLabel="< "
             renderOnZeroPageCount={null}
-            containerClassName={`${style.pagination}`}
-            activeClassName={`${style.active}`}
+            activeClassName={`active`}
         />
     )
 }

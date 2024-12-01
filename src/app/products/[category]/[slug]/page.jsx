@@ -34,7 +34,7 @@ const getDetails = async (baseUrl, slug) => {
     return data
 
   } catch (e) {
-    return e
+    return false
   }
 }
 
@@ -64,15 +64,15 @@ async function page({ params }) {
   const discountPercentage = data.discountPercentage;
   const beforeDiscount = afterDiscount / (1 - (discountPercentage / 100));
   return (
-    <main className='min-h-screen my-8'>
+    <main className='min-h-screen my-8 dark:text-white'>
       {data && (
-        <div className='container mx-auto mt-5  px-2 md:px-5 mb-20'>
-          <div className='mb-5 text-sm text-gray-600 font-semibold capitalize'>
-            <Link className='me-2 hover:text-black' href={"/products"}>products</Link>
+        <div className='container mx-auto mt-5 px-2 md:px-5 mb-20'>
+          <div className='mb-5 text-sm text-gray-600  dark:text-white/50 font-semibold capitalize'>
+            <Link className='me-2 hover:text-black dark:hover:text-white' href={"/products"}>products</Link>
             {`/`}
-            <Link className='mx-2 hover:text-black' href={`/products/${data.category}`}>{data.category}</Link>
+            <Link className='mx-2 hover:text-black dark:hover:text-white' href={`/products/${data.category}`}>{data.category}</Link>
             {`/`}
-            <span className='mx-2 text-black'>{data.title}</span>
+            <span className='mx-2 text-black dark:text-white'>{data.title}</span>
           </div>
 
           <div className='my-10'>
@@ -81,7 +81,7 @@ async function page({ params }) {
               <ImageComponent data={data} />
 
               <div className="lg:w-1/2 xl:w-1/2 2xl:w-2/3 w-full mt-3 lg:mt-0">
-                <h1 className="text-gray-900 text-xl xl:text-2xl 2xl:text-3xl font-medium mb-5">{data.title}</h1>
+                <h1 className="text-gray-900 dark:text-white text-xl xl:text-2xl 2xl:text-3xl font-medium mb-5">{data.title}</h1>
                 <div className="flex mb-4">
                   <div className='flex items-center'>
                     {[...Array(5)].map((_, index) => (
@@ -89,40 +89,33 @@ async function page({ params }) {
                     ))}
                   </div>
                   <span className="flex items-center">
-                    <span className="text-gray-600 text-sm md:text-base ml-3">{data.reviews.length} Reviews</span>
+                    <span className="text-gray-600 dark:text-white/50 text-sm md:text-base ml-3">{data.reviews.length} Reviews</span>
                   </span>
                 </div>
-                <h2 className="text-gray-900 md:text-lg mb-2 font-semibold">Brand: {data.brand}</h2>
+                <h2 className="text-gray-900 dark:text-white/60 md:text-lg mb-2 font-semibold">Brand: {data.brand}</h2>
 
                 <p className="text-sm leading-7 md:text-base">{data.description}</p>
                 <span className="text-red1 text-sm md:text-base font-semibold my-3 block ">SKU: {data.sku}</span>
-                <p className="text-black text-sm md:text-base my-3 font-semibold">Return Policy: {data.returnPolicy}</p>
-
+                <p className="text-black dark:text-white text-sm md:text-base my-3 font-semibold">Return Policy: {data.returnPolicy}</p>
                 <div className='my-3 flex justify-between'>
                   <div>
                     <span className='text-red-500 md:text-xl font-medium me-3'>${data.price}</span>
-                    <span className='text-gray-600 md:text-lg font-medium line-through'>${Math.round(beforeDiscount)}</span>
+                    <span className='text-gray-600 dark:text-gray-400 md:text-lg font-medium line-through'>${Math.round(beforeDiscount)}</span>
                   </div>
-                  <span className="text-orange-900 font-semibold text-sm sm:text-base">STOCK: {data.stock}</span>
+                  <span className="text-orange-900 dark:text-orange-500 font-semibold text-sm sm:text-base">STOCK: {data.stock}</span>
                 </div>
                 <PriceComponents item={data} />
-
               </div>
             </div>
           </div>
-
           <div className='mb-7'>
-            <h3 className="text-gray-800 capitalize text-sm mb-3 font-semibold"><span className='text-black font-bold'>warranty Information:</span> {data.warrantyInformation}</h3>
-            <h3 className="text-gray-800 capitalize text-sm mb-3 font-semibold"><span className='text-black font-bold'>shipping Information:</span>  {data.shippingInformation}</h3>
-            <h3 className="text-gray-800 capitalize text-sm mb-3 font-semibold"><span className='text-black font-bold'>availability Status:</span>  {data.availabilityStatus}</h3>
-
+            <h3 className="text-gray-800 dark:text-gray-300 capitalize text-sm mb-3 font-semibold"><span className='text-black dark:text-gray-500 font-bold'>warranty Information:</span> {data.warrantyInformation}</h3>
+            <h3 className="text-gray-800 dark:text-gray-300 capitalize text-sm mb-3 font-semibold"><span className='text-black dark:text-gray-500 font-bold'>shipping Information:</span>  {data.shippingInformation}</h3>
+            <h3 className="text-gray-800 dark:text-gray-300 capitalize text-sm mb-3 font-semibold"><span className='text-black dark:text-gray-500 font-bold'>availability Status:</span>  {data.availabilityStatus}</h3>
           </div>
-
-
           {data.reviews.length > 0 && (
             <Comments comments={data?.reviews} />
           )}
-
             <BestSellProducts baseUrl={process.env.baseUrl} title={"Best Sale"} />
         </div>
       )}

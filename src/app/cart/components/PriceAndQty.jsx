@@ -30,7 +30,6 @@ function PriceAndQty({ cartsData, setCartsData, item }) {
         }
     };
 
-
     useEffect(() => {
         if (qty !== cartFound.qty) {
             const newObject = { ...cartFound, qty, total: parseFloat((qty * item.price).toFixed(2)) };
@@ -38,7 +37,7 @@ function PriceAndQty({ cartsData, setCartsData, item }) {
                 cart.id === newObject.id ? newObject : cart
             );
             setCartsData(updatedCartsData);
-            localStorage.setItem("carts", JSON.stringify(updatedCartsData));
+            localStorage.setItem("cartsProducts", JSON.stringify(updatedCartsData));
         }
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [qty]);
@@ -46,7 +45,7 @@ function PriceAndQty({ cartsData, setCartsData, item }) {
     return (
         <div className="flex items-center justify-between flex-wrap gap-4 mt-6">
             <div className="flex items-center gap-3">
-                <h4 className="text-sm text-gray-600">Qty:</h4>
+                <h4 className="text-sm text-gray-600 dark:text-white">Qty:</h4>
                 <button onClick={handleMin} type="button"
                     className="flex items-center justify-center w-5 h-5 bg-red1 outline-none rounded-full">
                     <svg xmlns="http://www.w3.org/2000/svg" className="w-2 fill-white" viewBox="0 0 124 124">

@@ -30,7 +30,7 @@ function Footer() {
                     </div>
                 </div>
             </section>
-            <footer className='shadow-2xl mt-7 shadow-black'>
+            <footer className='shadow-2xl mt-7 shadow-black dark:shadow-gray-600 dark:text-white'>
                 <div className="container mx-auto">
                     <div className=" px-4 sm:px-6 lg:px-8">
                         <div className="grid md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-8 py-10 max-md:max-w-sm max-md:mx-auto">
@@ -38,7 +38,7 @@ function Footer() {
                                 <Link aria-label="linkToHome" className='hover:scale-110 transition-all font-bold text-2xl' href={"/"}>
                                     Dark Store
                                 </Link>
-                                <p className="py-8 text-sm text-gray-500 lg:max-w-xs text-center lg:text-left">Trusted in more than 100
+                                <p className="py-8 text-sm text-gray-500 dark:text-gray-400 lg:max-w-xs text-center lg:text-left">Trusted in more than 100
                                     countries & 5 million customers. Have any query ?</p>
                                 <a href="javascript:;"
                                     className="py-2.5 cursor-pointer px-5 h-9 block w-fit bg-red1 rounded-full shadow-sm text-xs text-white mx-auto transition-all  duration-500 hover:bg-red-700 lg:mx-0">
@@ -46,39 +46,39 @@ function Footer() {
                                 </a>
                             </div>
                             <div className="lg:mx-auto">
-                                <h4 className="text-lg text-gray-900 font-medium mb-7 ">Pagedone</h4>
+                                <h4 className="text-lg text-gray-900 font-medium mb-7 dark:text-white">Pagedone</h4>
                                 <ul className="text-sm  transition-all duration-500">
                                     <li className="mb-6">
-                                        <Link href="/" className="cursor-pointer text-gray-600 hover:text-gray-900">Home</Link>
+                                        <Link href="/" className="cursor-pointer text-gray-600 dark:text-gray-400 dark:hover:text-gray-300 hover:text-gray-900">Home</Link>
                                     </li>
                                     <li className="mb-6">
-                                        <Link href="/about" className="cursor-pointer  text-gray-600 hover:text-gray-900">About</Link>
+                                        <Link href="/about" className="cursor-pointer  text-gray-600 dark:text-gray-400 dark:hover:text-gray-300 hover:text-gray-900">About</Link>
                                     </li>
                                     <li>
-                                        <Link href="/products" className="cursor-pointer  text-gray-600 hover:text-gray-900">Products</Link>
+                                        <Link href="/products" className="cursor-pointer  text-gray-600 dark:text-gray-400 dark:hover:text-gray-300 hover:text-gray-900">Products</Link>
                                     </li>
                                 </ul>
                             </div>
                             <div className="lg:mx-auto">
-                                <h4 className="text-lg text-gray-900 font-medium mb-7">Support</h4>
+                                <h4 className="text-lg text-gray-900 font-medium mb-7 dark:text-white">Support</h4>
                                 <ul className="text-sm  transition-all duration-500">
                                     <li className="mb-6">
-                                        <a href="javascript:;" className="cursor-pointer text-gray-600 hover:text-gray-900">Customer
+                                        <a href="javascript:;" className="cursor-pointer text-gray-600 dark:text-gray-400 dark:hover:text-gray-300 hover:text-gray-900">Customer
                                             Support</a>
                                     </li>
                                     <li className="mb-6">
-                                        <a href="javascript:;" className="cursor-pointer  text-gray-600 hover:text-gray-900">Terms &
+                                        <a href="javascript:;" className="cursor-pointer  text-gray-600 dark:text-gray-400 dark:hover:text-gray-300 hover:text-gray-900">Terms &
                                             Conditions</a>
                                     </li>
                                     <li>
-                                        <a href="javascript:;" className="cursor-pointer  text-gray-600 hover:text-gray-900">Privacy
+                                        <a href="javascript:;" className="cursor-pointer  text-gray-600 dark:text-gray-400 dark:hover:text-gray-300 hover:text-gray-900">Privacy
                                             Policy</a>
                                     </li>
                                 </ul>
                             </div>
                             <div className="lg:mx-auto">
-                                <h4 className="text-lg text-gray-900 font-medium mb-7">Subscribe</h4>
-                                <p className="text-sm text-gray-500 leading-6 mb-7">Subscribe to get the latest news from us</p>
+                                <h4 className="text-lg text-gray-900 font-medium mb-7 dark:text-white">Subscribe</h4>
+                                <p className="text-sm text-gray-500 dark:text-gray-400 leading-6 mb-7">Subscribe to get the latest news from us</p>
                                 <Link href="/"
                                     className="flex cursor-pointer items-center justify-center gap-2 border border-red1 rounded-full py-3 px-6 w-fit text-sm text-red1 font-semibold transition-all duration-500 hover:bg-indigo-50">
                                     Subscribe<svg width="15" height="12" viewBox="0 0 15 12" fill="none"
@@ -92,7 +92,7 @@ function Footer() {
                         </div>
                         <div className="py-7 border-t border-gray-200">
                             <div className="flex items-center justify-center flex-col lg:justify-between lg:flex-row">
-                                <span className="text-sm text-gray-500 ">©pagedone 2024, All rights reserved.</span>
+                                <span className="text-sm text-gray-500 dark:text-white">©pagedone 2024, All rights reserved.</span>
                                 <div className="flex mt-4 space-x-4 sm:justify-center sm:mt-0 ">
                                     <Link href="/"
                                         className="w-8 cursor-pointer h-8 rounded-full transition-all duration-500 flex justify-center items-center bg-black/80 hover:bg-black">

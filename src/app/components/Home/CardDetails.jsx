@@ -1,16 +1,11 @@
 "use client";
 import React, { useContext, useState } from "react";
 import { Context } from "@/store/Context";
-
-import Button from "@material-tailwind/react/components/Button"
-import Dialog from "@material-tailwind/react/components/Dialog"
-import DialogHeader from "@material-tailwind/react/components/Dialog/DialogHeader"
-import DialogBody from "@material-tailwind/react/components/Dialog/DialogBody"
-import DialogFooter from "@material-tailwind/react/components/Dialog/DialogFooter"
+import Dialog from '@mui/material/Dialog';
+import { DialogActions, DialogContent } from '@mui/material';
 import Image from "next/image";
 
 function CardDetails({ handleOpen, open, item }) {
-
 
     function RatedIcon() {
         return (
@@ -28,8 +23,7 @@ function CardDetails({ handleOpen, open, item }) {
         );
     }
 
-    const { addToCart } = useContext(Context)
-
+    const { addToCart, theme } = useContext(Context)
     const [qty, setQty] = useState(1)
     const [total, setTotal] = useState(item.price)
 
@@ -79,36 +73,41 @@ function CardDetails({ handleOpen, open, item }) {
 
     return (
         <>
-            <Dialog size="sm" open={open} handler={handleOpen}>
-                <DialogHeader className="p-0">
+            <Dialog sx={{
+                ".MuiPaper-root": {
+                    background: theme === "dark" && "#050505"
+                }
+            }}
+                size="sm" open={open} >
+                <DialogContent className="p-0">
                     <div className="relative rounded-t-lg overflow-hidden h-[200px] sm:h-[280px] md:h-[450px] w-full mx-auto">
                         <Image src={item.thumbnail} alt={item.title} fill priority />
                     </div>
-                </DialogHeader>
-                <DialogBody>
-                    <h3 className=" text-black font-bold">{item.title}</h3>
-                    <p className="text-black text-sm my-3 leading-6">{item.description}</p>
+                </DialogContent>
+                <DialogContent>
+                    <h3 className="text-black dark:text-white font-bold">{item.title}</h3>
+                    <p className="text-black dark:text-white/80 text-sm my-3 leading-6">{item.description}</p>
                     <div className="flex justify-between items-center">
                         <span className="text-red1 text-sm md:text-base font-semibold ">SKU: {item.sku}</span>
-                        <span className="text-orange-900 font-semibold text-sm sm:text-base">STOCK: {item.stock}</span>
+                        <span className="text-orange-900 dark:text-orange-500 font-semibold text-sm sm:text-base">STOCK: {item.stock}</span>
                     </div>
-                    <p className="text-black text-sm md:text-base my-3 font-semibold">Return Policy: {item.returnPolicy}</p>
+                    <p className="text-black dark:text-white text-sm md:text-base my-3 font-semibold">Return Policy: {item.returnPolicy}</p>
                     <div className="flex justify-between items-center">
                         <div className='flex items-center'>
                             {[...Array(5)].map((_, index) => (
                                 index < Math.round(item.rating) ? <RatedIcon key={index} /> : <UnratedIcon key={index} />
                             ))}
-                            <span className='ms-2 text-sm mt-0.5 text-gray-700'>({item.stock})</span>
+                            <span className='ms-2 text-sm mt-0.5 text-gray-700 dark:text-gray-400'>({item.stock})</span>
                         </div>
                         <div >
-                            <div className="font-semibold">
+                            <div className="font-semibold dark:text-white">
                                 <span>Price: </span>
                                 <span>${item.price}</span>
                             </div>
                         </div>
                     </div>
                     <div className="flex justify-between items-center mt-3">
-                        <div className='flex items-center font-semibold text-black'>
+                        <div className='flex items-center font-semibold text-black dark:text-white'>
                             <span>Total: </span>
                             <span> ${total}</span>
                         </div>
@@ -159,19 +158,18 @@ function CardDetails({ handleOpen, open, item }) {
                             </button>
                         </div>
                     </div>
-                </DialogBody>
-                <DialogFooter>
-                    <Button
-                        variant="text"
+                </DialogContent>
+                <DialogActions className="mb-3">
+                    <button
                         color="black"
                         onClick={handleOpen}
-                        className="mr-1">
+                        className="me-1 bg-black dark:bg-white/30 text-white py-1.5 px-6 hover:opacity-70 rounded-md">
                         <span>Cancel</span>
-                    </Button>
-                    <Button variant="gradient" color="red" onClick={handleSend}>
+                    </button>
+                    <button className="bg-red1 text-white py-1.5 px-5 hover:opacity-70 rounded-md" onClick={handleSend}>
                         <span>Add To Card</span>
-                    </Button>
-                </DialogFooter>
+                    </button>
+                </DialogActions>
             </Dialog>
         </>
     );

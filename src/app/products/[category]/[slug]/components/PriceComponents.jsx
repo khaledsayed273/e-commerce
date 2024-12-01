@@ -47,7 +47,7 @@ function PriceComponents({ item }) {
     return (
         <>
             <div className="flex justify-between items-center mt-3">
-                <div className='flex items-center font-semibold text-black'>
+                <div className='flex items-center font-semibold text-black dark:text-white'>
                     <span>Total: </span>
                     <span> ${total}</span>
                 </div>
@@ -74,7 +74,7 @@ function PriceComponents({ item }) {
                             </defs>
                         </svg>
                     </button>
-                    <span className="mx-2 font-bold">{qty}</span>
+                    <span className="mx-2 font-bold dark:text-white">{qty}</span>
                     <button onClick={handleMin} className="hover:opacity-70">
                         <svg width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <g filter="url(#filter0_d_259_790)">
