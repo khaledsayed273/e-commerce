@@ -4,8 +4,7 @@ import { useParams, usePathname } from 'next/navigation';
 import React, { useEffect, useRef, useState } from 'react'
 
 function Nav({ categoriesData }) {
-
-    const {category}= useParams()
+    const { category } = useParams()
 
     const pathName = usePathname()
     const scrollRef = useRef(null);
@@ -49,13 +48,15 @@ function Nav({ categoriesData }) {
                         All
                     </Link>
                 </li>
-                {categoriesData?.map((item, index) => (
-                    <li key={index}>
-                        <Link className={`capitalize hover:bg-black/90 hover:text-white px-4 py-2 rounded-sm font-semibold text-nowrap text-xs ${category === item && "text-white bg-black/90 underline-offset-4 underline"} hover:underline-offset-4 hover:underline text-gray-600`} href={`/products/${item}`}>
-                            {item.replace(/-/g, ' ')}
-                        </Link>
-                    </li>
-                ))}
+                {categoriesData.length > 0 && (
+                    categoriesData?.map((item, index) => (
+                        <li key={index}>
+                            <Link className={`capitalize hover:bg-black/90 hover:text-white px-4 py-2 rounded-sm font-semibold text-nowrap text-xs ${category === item && "text-white bg-black/90 underline-offset-4 underline"} hover:underline-offset-4 hover:underline text-gray-600`} href={`/products/${item}`}>
+                                {item.replace(/-/g, ' ')}
+                            </Link>
+                        </li>
+                    ))
+                )}
             </ul>
             <div className='flex items-center'>
                 <button aria-label="Prev" onClick={scrollLeft} className={`me-2 py-1 px-2 hover:bg-gray-500/50 ${!canScrollLeft && "opacity-50"}`}>

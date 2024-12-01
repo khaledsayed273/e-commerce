@@ -5,13 +5,11 @@ import Image from 'next/image';
 import Link from 'next/link';
 import React, { useCallback, useContext, useEffect, useState } from 'react'
 import PriceAndQty from './components/PriceAndQty';
-import dynamic from 'next/dynamic';
 import Payment from './components/Payment';
 import ToastifyComponent from '@/Shared/ToastifyComponent';
 import { useRouter } from 'next/navigation';
-const Dialog = dynamic(() => import('@material-tailwind/react/components/Dialog'), { ssr: false });
-const DialogFooter = dynamic(() => import('@material-tailwind/react/components/Dialog/DialogFooter'), { ssr: false });
-const DialogHeader = dynamic(() => import('@material-tailwind/react/components/Dialog/DialogHeader'), { ssr: false });
+import Dialog from '@mui/material/Dialog';
+import { DialogActions, DialogContent } from '@mui/material';
 
 
 const CartItemSkeleton = React.memo(() => {
@@ -172,11 +170,11 @@ function Page() {
             <Dialog
                 open={open}
                 size={"xs"}
-                handler={handleOpen}>
-                <DialogHeader className='pt-5'>
-                    <span className='text-base'>Are you sure you want to delete this product</span>
-                </DialogHeader>
-                <DialogFooter>
+            >
+                <DialogContent className='p-5'>
+                    <span className='text-base font-bold'>Are you sure you want to delete this product</span>
+                </DialogContent>
+                <DialogActions>
                     <button
                         onClick={handleOpen}
                         className="me-2 bg-black text-white rounded-lg hover:opacity-80 px-5 py-1.5"
@@ -189,7 +187,7 @@ function Page() {
                     >
                         <span>Yes</span>
                     </button>
-                </DialogFooter>
+                </DialogActions>
             </Dialog>
 
 

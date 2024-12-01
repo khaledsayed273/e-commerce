@@ -1,16 +1,11 @@
 "use client";
 import React, { useContext, useState } from "react";
 import { Context } from "@/store/Context";
-
-import Button from "@material-tailwind/react/components/Button"
-import Dialog from "@material-tailwind/react/components/Dialog"
-import DialogHeader from "@material-tailwind/react/components/Dialog/DialogHeader"
-import DialogBody from "@material-tailwind/react/components/Dialog/DialogBody"
-import DialogFooter from "@material-tailwind/react/components/Dialog/DialogFooter"
+import Dialog from '@mui/material/Dialog';
+import { DialogActions, DialogContent } from '@mui/material';
 import Image from "next/image";
 
 function CardDetails({ handleOpen, open, item }) {
-
 
     function RatedIcon() {
         return (
@@ -29,7 +24,6 @@ function CardDetails({ handleOpen, open, item }) {
     }
 
     const { addToCart } = useContext(Context)
-
     const [qty, setQty] = useState(1)
     const [total, setTotal] = useState(item.price)
 
@@ -79,13 +73,13 @@ function CardDetails({ handleOpen, open, item }) {
 
     return (
         <>
-            <Dialog size="sm" open={open} handler={handleOpen}>
-                <DialogHeader className="p-0">
+            <Dialog size="sm" open={open} >
+                <DialogContent className="p-0">
                     <div className="relative rounded-t-lg overflow-hidden h-[200px] sm:h-[280px] md:h-[450px] w-full mx-auto">
                         <Image src={item.thumbnail} alt={item.title} fill priority />
                     </div>
-                </DialogHeader>
-                <DialogBody>
+                </DialogContent>
+                <DialogContent>
                     <h3 className=" text-black font-bold">{item.title}</h3>
                     <p className="text-black text-sm my-3 leading-6">{item.description}</p>
                     <div className="flex justify-between items-center">
@@ -159,19 +153,18 @@ function CardDetails({ handleOpen, open, item }) {
                             </button>
                         </div>
                     </div>
-                </DialogBody>
-                <DialogFooter>
-                    <Button
-                        variant="text"
+                </DialogContent>
+                <DialogActions className="mb-3">
+                    <button
                         color="black"
                         onClick={handleOpen}
-                        className="mr-1">
+                        className="me-1 bg-black text-white py-1.5 px-6 hover:opacity-70 rounded-md">
                         <span>Cancel</span>
-                    </Button>
-                    <Button variant="gradient" color="red" onClick={handleSend}>
+                    </button>
+                    <button  className="bg-red1 text-white py-1.5 px-5 hover:opacity-70 rounded-md" onClick={handleSend}>
                         <span>Add To Card</span>
-                    </Button>
-                </DialogFooter>
+                    </button>
+                </DialogActions>
             </Dialog>
         </>
     );

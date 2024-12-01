@@ -34,7 +34,7 @@ const getDetails = async (baseUrl, slug) => {
     return data
 
   } catch (e) {
-    return e
+    return false
   }
 }
 

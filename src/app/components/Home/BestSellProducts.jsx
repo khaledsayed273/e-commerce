@@ -3,10 +3,8 @@ import React, { useEffect, useState } from 'react'
 import SwiperComponent from './SwiperComponent'
 
 function BestSellProducts({ baseUrl , title = "Flash Sales" }) {
-
     const [products, setProducts] = useState([])
     const [loading, setLoading] = useState(true)
-
     useEffect(() => {
         const getBestSellProducts = async () => {
             const skipRandom = Math.floor(Math.random() * 194)
@@ -17,7 +15,7 @@ function BestSellProducts({ baseUrl , title = "Flash Sales" }) {
                 return setProducts(productsRes)
 
             } catch (e) {
-                e
+                return false
             } finally {
                 setLoading(false)
             }
@@ -36,7 +34,6 @@ function BestSellProducts({ baseUrl , title = "Flash Sales" }) {
                         </div>
                     </div>
                 </div>
-
             ) : (
                 <SwiperComponent title={title} data={products} />
             )}

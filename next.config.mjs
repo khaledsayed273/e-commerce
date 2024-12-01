@@ -19,7 +19,7 @@ const nextConfig = {
     },
     experimental: {
         reactCompiler: true,
-        optimizePackageImports: ['@material-tailwind/react', 'swiper/react', 'swiper/modules', 'gsap', 'react-countup'],
+        optimizePackageImports: ['swiper/react', 'swiper/modules', 'gsap', 'react-countup'],
     },
 };
 

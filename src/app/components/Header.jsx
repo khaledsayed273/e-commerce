@@ -1,23 +1,15 @@
 "use client"
-import { Context } from '@/store/Context'
 import dynamic from 'next/dynamic'
 import Image from 'next/image'
 import Link from 'next/link'
 import React, { memo, useContext, useState } from 'react'
-import Badge from "@material-tailwind/react/components/Badge"
-import Menu from "@material-tailwind/react/components/Menu"
-import MenuHandler from "@material-tailwind/react/components/Menu/MenuHandler"
-import MenuItem from "@material-tailwind/react/components/Menu/MenuItem"
-import IconButton from "@material-tailwind/react/components/IconButton"
+import Badge from '@mui/material/Badge';
+import Menu from '@mui/material/Menu';
 import { usePathname } from 'next/navigation'
-
-const MenuList = dynamic(() =>
-    import('@material-tailwind/react').then((mod) => mod.MenuList), { ssr: false }
-)
-
+import { Context } from '@/store/Context'
+import { IconButton, MenuItem } from '@mui/material'
 
 function Header() {
-
     const CartIcon = memo(() => (
         <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M11 27C11.5523 27 12 26.5523 12 26C12 25.4477 11.5523 25 11 25C10.4477 25 10 25.4477 10 26C10 26.5523 10.4477 27 11 27Z" stroke="black" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
@@ -52,27 +44,35 @@ function Header() {
         },
     ]
 
-
     const isCartEmpty = !cartsData || cartsData.length === 0;
-
     const [isMenuOpen, setIsMenuOpen] = useState(false);
-    const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
-
-
-    const [showMenu , setShowMenu] = useState(false)
-
+    const [showMenu, setShowMenu] = useState(false)
+    const [anchorEl, setAnchorEl] = React.useState(null);
+    const [anchorElPerson, setAnchorElPerson] = React.useState(null);
+    const open = Boolean(anchorEl);
+    const openPerson = Boolean(anchorElPerson);
+    const handleClick = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
+    const handleClickPerson = (event) => {
+        setAnchorElPerson(event.currentTarget);
+    };
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
+    const handleClosePerson = () => {
+        setAnchorElPerson(null);
+    };
     const handleShowMenu = () => {
         setShowMenu(!showMenu)
     }
-
     const hiddenMenuOrCardDropDown = () => {
-        setShowMenu(false)
         setIsMenuOpen(false)
     }
 
     return (
         <nav className='border-b border-gray-300 pt-2.5'>
-            <div onClick={hiddenMenuOrCardDropDown} className={`${isMenuOpen || showMenu  ? "block" : "hidden"}  absolute left-0 top-0 bottom-0 right-0 `}>
+            <div onClick={hiddenMenuOrCardDropDown} className={`${isMenuOpen || showMenu ? "block" : "hidden"}  absolute left-0 top-0 bottom-0 right-0 `}>
             </div>
             <div className='container p-2 mx-auto flex items-center justify-between '>
                 <Link aria-label="linkToHome" className='hover:scale-110 z-50 transition-all font-bold text-2xl' href={"/"}>
@@ -87,28 +87,36 @@ function Header() {
                 </ul>
                 <div className='flex items-center'>
                     <div className='mx-4 flex'>
+                        {isCartEmpty ? (
+                            <button aria-label="cartEmpty">
+                                <CartIcon />
+                            </button>
+                        ) : (
+                            <div className="flex z-50">
+                                <Badge sx={{
+                                    '& .MuiBadge-badge': {
+                                        backgroundColor: '#D34053',
+                                        color: '#fff',
+                                    },
+                                }} badgeContent={cartsData.length}>
+                                    <IconButton onClick={handleClick}
+                                        aria-label="cartButton"
+                                        aria-controls={open ? 'cart-menu' : undefined}
+                                        className="bg-transparent  shadow-none hover:shadow-none p-0">
+                                        <CartIcon />
+                                    </IconButton>
+                                </Badge>
+                            </div>
+                        )}
                         <Menu
-                            open={isMenuOpen}
-                            dismiss={{
-                                itemPress: false,
-                            }}
+                            anchorEl={anchorEl}
+                            id="cart-menu"
+                            open={open}
+                            onClose={handleClose}
+                            transformOrigin={{ horizontal: 'center', vertical: 'top' }}
+                            className='mt-3'
                         >
-                            {isCartEmpty ? (
-                                <button aria-label="cartEmpty">
-                                    <CartIcon />
-                                </button>
-                            ) : (
-                                <MenuHandler>
-                                    <div className="flex z-50">
-                                        <Badge content={cartsData.length}>
-                                            <IconButton onClick={toggleMenu} aria-label="cartButton" className="bg-transparent  shadow-none hover:shadow-none p-0">
-                                                <CartIcon />
-                                            </IconButton>
-                                        </Badge>
-                                    </div>
-                                </MenuHandler>
-                            )}
-                            <MenuList className="mt-3 p-2 shadow-lg  shadow-gray-400 max-h-[520px] w-[350px]">
+                            <div className="mt-3 p-2 shadow-lg  shadow-gray-400 max-h-[520px] w-[350px]">
                                 <div className='max-h-[400px] overflow-auto p-1.5'>
                                     {cartsData.map((item) => (
                                         <div key={item.id} className="flex border border-gray-500 rounded-xl  items-center  gap-4 p-2 mb-5">
@@ -145,38 +153,52 @@ function Header() {
                                         ${totalPrice}
                                     </span>
                                 </div>
-                                <Link onClick={toggleMenu} className='mb-2 block mx-auto text-center font-semibold hover:opacity-80 border rounded-md py-2 bg-black text-white' href={"/cart"}>Check out</Link>
-                            </MenuList>
+                                <Link onClick={() => {
+                                    handleClose()
+                                    }} className='mb-2 block mx-auto text-center font-semibold hover:opacity-80 border rounded-md py-2 bg-black text-white' href={"/cart"}>Check out</Link>
+                            </div>
                         </Menu>
                     </div>
-
-                    <Menu>
-                        <MenuHandler>
-                            <button className='z-50' aria-label="person">
-                                <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M24 27V24.3333C24 22.9188 23.5224 21.5623 22.6722 20.5621C21.8221 19.5619 20.669 19 19.4667 19H11.5333C10.331 19 9.17795 19.5619 8.32778 20.5621C7.47762 21.5623 7 22.9188 7 24.3333V27" stroke="black" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                                    <path d="M16.5 14C18.9853 14 21 11.9853 21 9.5C21 7.01472 18.9853 5 16.5 5C14.0147 5 12 7.01472 12 9.5C12 11.9853 14.0147 14 16.5 14Z" stroke="black" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                                </svg>
-                            </button>
-                        </MenuHandler>
-                        <MenuList className='mt-3'>
-                            <MenuItem className="flex items-center gap-2">
-                                <svg
-                                    width="16"
-                                    height="16"
-                                    viewBox="0 0 16 16"
-                                    fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path
-                                        fillRule="evenodd"
-                                        clipRule="evenodd"
-                                        d="M16 8C16 10.1217 15.1571 12.1566 13.6569 13.6569C12.1566 15.1571 10.1217 16 8 16C5.87827 16 3.84344 15.1571 2.34315 13.6569C0.842855 12.1566 0 10.1217 0 8C0 5.87827 0.842855 3.84344 2.34315 2.34315C3.84344 0.842855 5.87827 0 8 0C10.1217 0 12.1566 0.842855 13.6569 2.34315C15.1571 3.84344 16 5.87827 16 8ZM10 5C10 5.53043 9.78929 6.03914 9.41421 6.41421C9.03914 6.78929 8.53043 7 8 7C7.46957 7 6.96086 6.78929 6.58579 6.41421C6.21071 6.03914 6 5.53043 6 5C6 4.46957 6.21071 3.96086 6.58579 3.58579C6.96086 3.21071 7.46957 3 8 3C8.53043 3 9.03914 3.21071 9.41421 3.58579C9.78929 3.96086 10 4.46957 10 5ZM8 9C7.0426 8.99981 6.10528 9.27449 5.29942 9.7914C4.49356 10.3083 3.85304 11.0457 3.454 11.916C4.01668 12.5706 4.71427 13.0958 5.49894 13.4555C6.28362 13.8152 7.13681 14.0009 8 14C8.86319 14.0009 9.71638 13.8152 10.5011 13.4555C11.2857 13.0958 11.9833 12.5706 12.546 11.916C12.147 11.0457 11.5064 10.3083 10.7006 9.7914C9.89472 9.27449 8.9574 8.99981 8 9Z"
-                                        fill="#90A4AE"
-                                    />
-                                </svg>
-                                <span>
-                                    My Profile
-                                </span>
+                    <button
+                        onClick={handleClickPerson}
+                        className='z-50'
+                        aria-label="person"
+                        aria-controls={openPerson ? 'person-menu' : undefined}
+                    >
+                        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M24 27V24.3333C24 22.9188 23.5224 21.5623 22.6722 20.5621C21.8221 19.5619 20.669 19 19.4667 19H11.5333C10.331 19 9.17795 19.5619 8.32778 20.5621C7.47762 21.5623 7 22.9188 7 24.3333V27" stroke="black" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                            <path d="M16.5 14C18.9853 14 21 11.9853 21 9.5C21 7.01472 18.9853 5 16.5 5C14.0147 5 12 7.01472 12 9.5C12 11.9853 14.0147 14 16.5 14Z" stroke="black" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                        </svg>
+                    </button>
+                    <Menu
+                        anchorEl={anchorElPerson}
+                        id="person-menu"
+                        open={openPerson}
+                        onClose={handleClosePerson}
+                        onClick={handleClosePerson}
+                        transformOrigin={{ horizontal: 'center', vertical: 'top' }}
+                        className='mt-5'
+                    >
+                        <div>
+                            <MenuItem>
+                                <Link className='gap-2 flex items-center' href={"/dashboard"}>
+                                    <svg
+                                        width="16"
+                                        height="16"
+                                        viewBox="0 0 16 16"
+                                        fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            fillRule="evenodd"
+                                            clipRule="evenodd"
+                                            d="M16 8C16 10.1217 15.1571 12.1566 13.6569 13.6569C12.1566 15.1571 10.1217 16 8 16C5.87827 16 3.84344 15.1571 2.34315 13.6569C0.842855 12.1566 0 10.1217 0 8C0 5.87827 0.842855 3.84344 2.34315 2.34315C3.84344 0.842855 5.87827 0 8 0C10.1217 0 12.1566 0.842855 13.6569 2.34315C15.1571 3.84344 16 5.87827 16 8ZM10 5C10 5.53043 9.78929 6.03914 9.41421 6.41421C9.03914 6.78929 8.53043 7 8 7C7.46957 7 6.96086 6.78929 6.58579 6.41421C6.21071 6.03914 6 5.53043 6 5C6 4.46957 6.21071 3.96086 6.58579 3.58579C6.96086 3.21071 7.46957 3 8 3C8.53043 3 9.03914 3.21071 9.41421 3.58579C9.78929 3.96086 10 4.46957 10 5ZM8 9C7.0426 8.99981 6.10528 9.27449 5.29942 9.7914C4.49356 10.3083 3.85304 11.0457 3.454 11.916C4.01668 12.5706 4.71427 13.0958 5.49894 13.4555C6.28362 13.8152 7.13681 14.0009 8 14C8.86319 14.0009 9.71638 13.8152 10.5011 13.4555C11.2857 13.0958 11.9833 12.5706 12.546 11.916C12.147 11.0457 11.5064 10.3083 10.7006 9.7914C9.89472 9.27449 8.9574 8.99981 8 9Z"
+                                            fill="#90A4AE"
+                                        />
+                                    </svg>
+                                    <span>
+                                        My Dashboard
+                                    </span>
+                                </Link>
                             </MenuItem>
                             <MenuItem>
                                 <Link className='gap-2 flex items-center' href={"/cart"}>
@@ -239,7 +261,7 @@ function Header() {
                                     Sign Out
                                 </span>
                             </MenuItem>
-                        </MenuList>
+                        </div>
                     </Menu>
 
                     <button onClick={handleShowMenu} className='ms-3 md:hidden hover:opacity-80'>
@@ -249,7 +271,7 @@ function Header() {
                     </button>
                 </div>
             </div>
-            
+
         </nav>
     )
 }
