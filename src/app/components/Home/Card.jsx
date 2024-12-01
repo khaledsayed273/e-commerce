@@ -8,20 +8,17 @@ const CardDetails = dynamic(() => import("./CardDetails"), { ssr: false });
 
 const Card = ({ item }) => {
 
-
     const afterDiscount = item.price;
     const discountPercentage = item.discountPercentage;
     const beforeDiscount = afterDiscount / (1 - (discountPercentage / 100));
     const [hovered, setHovered] = useState(false);
     const [loading, setLoading] = useState(true);
-
-    const [open, setOpen] = React.useState(false);
+    const [open, setOpen] = useState(false);
 
     const handleOpen = () => setOpen(!open);
 
     const [image, setImage] = useState(item.images[0])
     const [image2, setImage2] = useState(item.images[1])
-
 
     function onImageLoad() {
         setLoading(false)

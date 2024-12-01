@@ -2,7 +2,6 @@
 import React, { useContext, useState } from "react";
 import { Context } from "@/store/Context";
 
-import Button from "@material-tailwind/react/components/Button"
 import Dialog from "@material-tailwind/react/components/Dialog"
 import DialogHeader from "@material-tailwind/react/components/Dialog/DialogHeader"
 import DialogBody from "@material-tailwind/react/components/Dialog/DialogBody"
@@ -161,16 +160,16 @@ function CardDetails({ handleOpen, open, item }) {
                     </div>
                 </DialogBody>
                 <DialogFooter>
-                    <Button
-                        variant="text"
+                    <button
+
                         color="black"
                         onClick={handleOpen}
-                        className="mr-1">
+                        className="me-1 bg-black text-white py-1.5 px-6 hover:opacity-70 rounded-md">
                         <span>Cancel</span>
-                    </Button>
-                    <Button variant="gradient" color="red" onClick={handleSend}>
+                    </button>
+                    <button  className="bg-red1 text-white py-1.5 px-5 hover:opacity-70 rounded-md" onClick={handleSend}>
                         <span>Add To Card</span>
-                    </Button>
+                    </button>
                 </DialogFooter>
             </Dialog>
         </>
