@@ -7,7 +7,6 @@ import Footer from "./components/Footer";
 import Nav from "./components/Nav";
 import Script from "next/script";
 
-
 export const metadata = {
   title: "Dark Store",
   description: "Dark Store e-commerce",
@@ -27,6 +26,7 @@ export default async function RootLayout({ children }) {
   const categoriesData = await getCategories()
 
 
+  
   return (
     <html style={{ scrollbarColor: "#A61C1C rgba(216, 215, 215, 0.438)", scrollbarWidth: "thin" }} lang="en">
 

@@ -41,6 +41,31 @@ function Nav({ categoriesData }) {
         });
     };
 
+    const [analyticsData, setAnalyticsData] = useState(null);
+
+    useEffect(() => {
+        async function fetchData() {
+            try {
+                const response = await fetch("/api/analytics");
+
+                const contentType = response.headers.get("Content-Type");
+                if (!contentType || !contentType.includes("application/json")) {
+                    throw new Error("Expected JSON, but got " + contentType);
+                }
+
+                const data = await response.json();
+                setAnalyticsData(data);
+            } catch (error) {
+                console.error("Error fetching data:", error);
+            }
+        }
+
+        fetchData();
+    }, []);
+
+    console.log(analyticsData);
+
+
 
     return (
         <div className='flex border-b border-gray-500'>
