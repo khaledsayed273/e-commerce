@@ -31,7 +31,7 @@ function ClientSide({ baseUrl }) {
     const handleSearch = (value) => {
         clearTimeout(timeout);
         timeout = setTimeout(() => {
-            umami.track(value);
+            umami.track(`search` , {value});
             setSearch(value);
         }, 1000);
     }

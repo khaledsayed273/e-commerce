@@ -45,8 +45,14 @@ function Nav({ categoriesData }) {
     useEffect(() => {
         async function fetchData() {
             try {
-                const response = await fetch("/api/analytics");
-
+                const response = await fetch("https://api.umami.is/v1/websites/114e5419-ed6c-4dfa-a261-508da0110e36/stats?startAt=0&endAt=1733142849929" , {
+                    headers: {
+                        "x-umami-api-key": "7c11NsPZu44lCHKuU9CTaK1fS5jOWhOd",
+                        "Access-Control-Allow-Origin": "*"
+                    }
+                });
+                console.log(response);
+                
                 const contentType = response.headers.get("Content-Type");
                 if (!contentType || !contentType.includes("application/json")) {
                     throw new Error("Expected JSON, but got " + contentType);
@@ -62,7 +68,7 @@ function Nav({ categoriesData }) {
         fetchData();
     }, []);
 
-    // console.log(analyticsData);
+    console.log(analyticsData);
 
 
 
