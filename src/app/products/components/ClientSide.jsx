@@ -73,7 +73,7 @@ function ClientSide({ baseUrl }) {
                 </div>
             ) : (
                 <>
-                    {data.products.length > 0 ? (
+                    {data?.products?.length > 0 ? (
                         <div className="grid mb-10 min-h-[60vh] sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-10">
                             {data?.products?.map((item) => (
                                 <div key={item.id}>

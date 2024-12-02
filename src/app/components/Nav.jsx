@@ -56,7 +56,7 @@ function Nav({ categoriesData }) {
                 const data = await response.json();
                 setAnalyticsData(data);
             } catch (error) {
-                console.error("Error fetching data:", error);
+                // console.error("Error fetching data:", error);
             }
         }
 
