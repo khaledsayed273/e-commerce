@@ -4,7 +4,6 @@ import { useParams, usePathname } from 'next/navigation';
 import React, { useEffect, useRef, useState } from 'react'
 
 function Nav({ categoriesData }) {
-
     const { category } = useParams()
 
     const pathName = usePathname()
@@ -63,7 +62,7 @@ function Nav({ categoriesData }) {
         fetchData();
     }, []);
 
-    console.log(analyticsData);
+    // console.log(analyticsData);
 
 
 

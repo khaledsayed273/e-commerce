@@ -28,7 +28,7 @@ const getCategories = async () => {
 export default async function RootLayout({ children }) {
   const categoriesData = await getCategories();
   
-  const cookieStore = cookies();
+  const cookieStore = await cookies();
   const visitorId = cookieStore.get("visitorId")?.value
   
   return (
