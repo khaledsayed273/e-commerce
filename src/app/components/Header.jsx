@@ -1,5 +1,4 @@
 "use client"
-import { Context } from '@/store/Context'
 import dynamic from 'next/dynamic'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -10,14 +9,13 @@ import MenuHandler from "@material-tailwind/react/components/Menu/MenuHandler"
 import MenuItem from "@material-tailwind/react/components/Menu/MenuItem"
 import IconButton from "@material-tailwind/react/components/IconButton"
 import { usePathname } from 'next/navigation'
+import { Context } from '@/store/Context'
 
 const MenuList = dynamic(() =>
     import('@material-tailwind/react').then((mod) => mod.MenuList), { ssr: false }
 )
 
-
 function Header() {
-
     const CartIcon = memo(() => (
         <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M11 27C11.5523 27 12 26.5523 12 26C12 25.4477 11.5523 25 11 25C10.4477 25 10 25.4477 10 26C10 26.5523 10.4477 27 11 27Z" stroke="black" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
