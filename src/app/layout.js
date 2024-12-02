@@ -27,16 +27,16 @@ const getCategories = async () => {
 
 export default async function RootLayout({ children }) {
   const categoriesData = await getCategories();
-  
+
   const cookieStore = await cookies();
   const visitorId = cookieStore.get("visitorId")?.value
-  
+
   return (
     <html style={{ scrollbarColor: "#A61C1C rgba(216, 215, 215, 0.438)", scrollbarWidth: "thin" }} lang="en">
-      <Script 
-        defer 
-        src="https://cloud.umami.is/script.js" 
-        data-website-id="0945ca12-dd11-44a9-9292-9a2c9ed505a5"
+      <Script
+        defer
+        src="https://cloud.umami.is/script.js"
+        data-website-id="114e5419-ed6c-4dfa-a261-508da0110e36"
         data-visitor-id={visitorId}
       ></Script>
       <body className={`${inter.className} antialiased`}>
