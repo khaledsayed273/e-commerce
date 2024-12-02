@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import CardDataStats from './components/tables/CardDataStats';
 import LineChart from './components/charts/LineChart';
 
-function page() {
+function Page() {
 
     const [analyticsData, setAnalyticsData] = useState(null);
 
@@ -186,4 +186,4 @@ function page() {
     )
 }
 
-export default page
+export default Page
