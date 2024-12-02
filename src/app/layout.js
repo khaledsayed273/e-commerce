@@ -6,6 +6,7 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Nav from "./components/Nav";
 import Script from "next/script";
+import { cookies } from "next/headers";
 
 export const metadata = {
   title: "Dark Store",
@@ -13,25 +14,6 @@ export const metadata = {
 };
 const inter = Inter({ subsets: ['latin'] })
 
-const generateUUID = () => {
-  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-    var r = Math.random() * 16 | 0,
-        v = c === 'x' ? r : (r & 0x3 | 0x8);
-    return v.toString(16);
-  });
-};
-
-const setUniqueVisitorCookie = () => {
-  if (typeof window !== 'undefined') {
-    let visitorId = localStorage.getItem('visitorId');
-        if (!visitorId) {
-      visitorId = generateUUID();
-      localStorage.setItem('visitorId', visitorId);
-    }
-    return visitorId;
-  }
-  return null;
-};
 
 const getCategories = async () => {
   try {
@@ -46,7 +28,8 @@ const getCategories = async () => {
 export default async function RootLayout({ children }) {
   const categoriesData = await getCategories();
   
-  const visitorId = setUniqueVisitorCookie();
+  const cookieStore = cookies();
+  const visitorId = cookieStore.get("visitorId")?.value
   
   return (
     <html style={{ scrollbarColor: "#A61C1C rgba(216, 215, 215, 0.438)", scrollbarWidth: "thin" }} lang="en">
