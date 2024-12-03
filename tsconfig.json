@@ -1,7 +1,9 @@
 {
   "compilerOptions": {
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": [
+        "./src/*"
+      ]
     },
     "target": "ES2017",
     "lib": [
@@ -32,4 +34,7 @@
     "**/*.ts",
     "**/*.tsx"
   ],
+  "exclude": [
+    "node_modules"
+  ]
 }

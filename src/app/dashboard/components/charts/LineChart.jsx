@@ -1,97 +1,35 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 
-const ReactApexChart = dynamic(() => import("react-apexcharts"), {
+const Chart  = dynamic(() => import("react-apexcharts"), {
   ssr: false,
 });
 
-const options = {
-  legend: {
-    show: false,
-    position: "top",
-    horizontalAlign: "left",
-  },
-  colors: ["#3C50E0", "#80CAEE"],
-  chart: {
-    fontFamily: "Satoshi, sans-serif",
-    height: 335,
-    type: "area",
-    dropShadow: {
-      enabled: true,
-      color: "#623CEA14",
-      top: 10,
-      blur: 4,
-      left: 0,
-      opacity: 0.1,
-    },
 
-    toolbar: {
-      show: false,
-    },
-  },
-  responsive: [
-    {
-      breakpoint: 1024,
-      options: {
-        chart: {
-          height: 300,
-        },
-      },
-    },
-    {
-      breakpoint: 1366,
-      options: {
-        chart: {
-          height: 350,
-        },
-      },
-    },
-  ],
-  stroke: {
-    width: [2, 2],
-    curve: "straight",
-  },
-  // labels: {
-  //   show: false,
-  //   position: "top",
-  // },
-  grid: {
-    xaxis: {
-      lines: {
-        show: true,
-      },
-    },
-    yaxis: {
-      lines: {
-        show: true,
-      },
-    },
-  },
+const options = {
+  colors: ["#3C50E0", "#80CAEE"],
   dataLabels: {
-    enabled: false,
+    enabled: true,
   },
-  markers: {
-    size: 4,
-    colors: "#fff",
-    strokeColors: ["#3056D3", "#80CAEE"],
-    strokeWidth: 3,
-    strokeOpacity: 0.9,
-    strokeDashArray: 0,
-    fillOpacity: 1,
-    discrete: [],
-    hover: {
-      size: undefined,
-      sizeOffset: 5,
-    },
+
+  chart: {
+    width: "100%",
+    height: 380,
+    type: "bar"
+  },
+  plotOptions: {
+    bar: {
+      horizontal: false
+    }
+  },
+  stroke: {
+    width: 1,
+    colors: ["#fff"]
   },
   xaxis: {
-    type: "category",
+    type: "Months",
     categories: [
-      "Sep",
-      "Oct",
-      "Nov",
-      "Dec",
       "Jan",
       "Feb",
       "Mar",
@@ -100,83 +38,193 @@ const options = {
       "Jun",
       "Jul",
       "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec",
     ],
-    axisBorder: {
-      show: false,
-    },
-    axisTicks: {
-      show: false,
-    },
   },
-  yaxis: {
-    title: {
-      style: {
-        fontSize: "0px",
-      },
-    },
-    min: 0,
-    max: 100,
+  legend: {
+    position: "right",
+    verticalAlign: "top",
+    containerMargin: {
+      left: 40,
+      right: 60
+    }
   },
+  responsive: [
+    {
+      breakpoint: 767,
+      options: {
+        plotOptions: {
+          bar: {
+            horizontal: true
+          }
+        },
+        legend: {
+          position: "bottom"
+        }
+      }
+    }
+  ]
 };
+
+
+// const options = {
+ 
+//   colors: ["#3C50E0", "#80CAEE"],
+//   chart: {
+//     width: "100%",
+//     height: 380,
+//     type: "bar"
+//   },
+
+//   responsive: [
+//     {
+//       breakpoint: 1000,
+//       options: {
+//         plotOptions: {
+//           bar: {
+//             horizontal: false
+//           }
+//         },
+//         legend: {
+//           position: "bottom"
+//         }
+//       }
+//     }
+//   ],
+//   grid: {
+//     xaxis: {
+//       lines: {
+//         show: false,
+//       },
+//     },
+//     yaxis: {
+//       lines: {
+//         show: true,
+//       },
+//     },
+//   },
+//   dataLabels: {
+//     enabled: true,
+//   },
+//   markers: {
+//     size: 4,
+//     colors: "#fff",
+//     strokeColors: ["#3056D3", "#80CAEE"],
+//     strokeOpacity: 0.9,
+//     strokeDashArray: 0,
+//     fillOpacity: 1,
+//     discrete: [],
+//     hover: {
+//       size: undefined,
+//       sizeOffset: 5,
+//     },
+//   },
+//   xaxis: {
+//     type: "Months",
+//     categories: [
+//       "Jan",
+//       "Feb",
+//       "Mar",
+//       "Apr",
+//       "May",
+//       "Jun",
+//       "Jul",
+//       "Aug",
+//       "Sep",
+//       "Oct",
+//       "Nov",
+//       "Dec",
+//     ],
+//   },
+ 
+// };
 
 
 
 const LineChart = () => {
   const series = [
-      {
-        name: "Product One",
-        data: [23, 11, 22, 27, 13, 22, 37, 21, 44, 22, 30, 45],
-      },
-    ]
+    {
+      name: "Product One",
+      data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    },
+  ]
+
+
+  const [analyticsData, setAnalyticsData] = useState(null);
+  const [monthPageviews, setMonthPageviews] = useState(null);
+  const [valuePageViewsByMonth, setValuePageViewsByMonth] = useState(0);
+
+  const reorderDataByMonth = (series, targetMonth = "Dec", valuePageViewsByMonth) => {
+    const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    const targetIndex = months.indexOf(targetMonth);
+  
+    if (targetIndex === -1) {
+      return series;
+    }
+  
+    return series.map((item) => {
+      const { data } = item;
+      const updatedData = [...data];
+  
+      updatedData[targetIndex] = valuePageViewsByMonth;
+  
+      return { ...item, data: updatedData };
+    });
+  };
+
+
+  useEffect(() => {
+    async function fetchData() {
+      const timestamp = Date.now();
+      try {
+        const response = await fetch(`/api/getPageviews?timestamp=${timestamp}`);
+        if (!response.ok) {
+          // throw new Error("Failed to fetch Umami stats");
+        }
+
+        const data = await response.json();
+        const date = new Date(data.pageviews[0].x);
+        const month = date.toLocaleString("en-US", { month: "short" });
+        setMonthPageviews(month)
+        setValuePageViewsByMonth(data.pageviews[0].y);
+        setAnalyticsData(data);
+
+
+      } catch (error) {
+        console.log("Error fetching data:", error);
+      }
+    }
+    fetchData();
+  }, []);
+
+
+  const [data, setData] = useState([])
+
+  useEffect(() => {
+    if (analyticsData !== null) {
+      setData()
+
+    }
+  }, [analyticsData])
+
+
+  const result = reorderDataByMonth(series, monthPageviews, valuePageViewsByMonth);
+
+  console.log(result);
 
   return (
     <div className="col-span-12 rounded-sm border border-stroke bg-white px-5 pb-5 pt-7 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7 xl:col-span-8">
-      <div className="flex flex-wrap items-start justify-between gap-3 sm:flex-nowrap">
-        <div className="flex w-full flex-wrap gap-3 sm:gap-5">
-          <div className="flex min-w-47">
-            <span className="mr-2 mt-1 flex h-4 w-full max-w-4 items-center justify-center rounded-full border border-primary">
-              <span className="block h-2.5 w-full max-w-2.5 rounded-full bg-primary"></span>
-            </span>
-            <div className="w-full">
-              <p className="font-semibold text-primary">Total Revenue</p>
-              <p className="text-sm font-medium">12.04.2022 - 12.05.2022</p>
-            </div>
-          </div>
-          <div className="flex min-w-48">
-            <span className="me-2 mt-1 flex h-4 w-full max-w-4 items-center justify-center rounded-full border border-secondary">
-              <span className="block h-2.5 w-full max-w-2.5 rounded-full bg-secondary"></span>
-            </span>
-            <div className="w-full">
-              <p className="font-semibold text-secondary">Total Sales</p>
-              <p className="text-sm font-medium">12.04.2022 - 12.05.2022</p>
-            </div>
-          </div>
-        </div>
-        <div className="flex w-full max-w-44 justify-end">
-          <div className="inline-flex items-center rounded-md bg-whiter p-1.5 dark:bg-meta-4">
-            <button className="rounded bg-white px-3 py-1 text-xs font-medium text-black shadow-card hover:bg-white hover:shadow-card dark:bg-boxdark dark:text-white dark:hover:bg-boxdark">
-              Day
-            </button>
-            <button className="rounded px-3 py-1 text-xs font-medium text-black hover:bg-white hover:shadow-card dark:text-white dark:hover:bg-boxdark">
-              Week
-            </button>
-            <button className="rounded px-3 py-1 text-xs font-medium text-black hover:bg-white hover:shadow-card dark:text-white dark:hover:bg-boxdark">
-              Month
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <div>
-        <div id="chartOne" className="-ml-5">
-          <ReactApexChart
-            options={options}
-            series={series}
-            type="area"
-            height={350}
-            width={"100%"}
-          />
-        </div>
+      <div id="chartOne" className="-ms-5">
+        <Chart 
+          options={options}
+          series={result}
+          type="bar"
+          height={350}
+          width={"100%"}
+        />
       </div>
     </div>
   );
