@@ -5,6 +5,7 @@ import { ToastContainer } from "react-toastify";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Nav from "./components/Nav";
+import ClientSideCode from "./components/ClientSideCode";
 import Script from "next/script";
 import { cookies } from "next/headers";
 
@@ -31,14 +32,16 @@ export default async function RootLayout({ children }) {
   const cookieStore = await cookies();
   const visitorId = cookieStore.get("visitorId")?.value
 
+
+
   return (
     <html style={{ scrollbarColor: "#A61C1C rgba(216, 215, 215, 0.438)", scrollbarWidth: "thin" }} lang="en">
       <Script
         defer
         src="https://cloud.umami.is/script.js"
         data-website-id="114e5419-ed6c-4dfa-a261-508da0110e36"
-        data-visitor-id={visitorId}
       ></Script>
+      <ClientSideCode visitorId={visitorId} />
       <body className={`${inter.className} antialiased`}>
         <ProviderContext>
           <Header />
