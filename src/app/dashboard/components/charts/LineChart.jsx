@@ -10,7 +10,7 @@ const Chart = dynamic(() => import("react-apexcharts"), {
 
 
 
-const LineChart = () => {
+const LineChart = ({firstDayTimestamp}) => {
   const [loading, setLoading] = useState(true)
   const [analyticsData, setAnalyticsData] = useState([]);
   const date = new Date();
@@ -24,8 +24,6 @@ const LineChart = () => {
     return nextMonth.getDate();
   }
   const daysInMonth = getDaysInCurrentMonth();
-
-
 
   const series = [
     {
@@ -125,22 +123,23 @@ const LineChart = () => {
     return pushData;
   }
 
+  const getTimeZone = () => {
+    return Intl.DateTimeFormat().resolvedOptions().timeZone;
+  };
+
+  const timeZone = getTimeZone()
+  
+
 
   useEffect(() => {
     async function fetchData() {
       const timestamp = Date.now();
-      function getFirstDayOfCurrentMonthTimestamp() {
-        const now = new Date();
-        const firstDay = new Date(now.getFullYear(), now.getMonth(), 1);
-        return firstDay.getTime();
-      }
-      const firstDayTimestamp = getFirstDayOfCurrentMonthTimestamp();
+     
       try {
-        const response = await fetch(`/api/getPageviews?endAt=${timestamp}&startAt=${firstDayTimestamp}`);
+        const response = await fetch(`/api/getPageviews?endAt=${timestamp}&startAt=${firstDayTimestamp}&timeZone=${timeZone}`);
         if (!response.ok) {
           return
         }
-
         const data = await response.json();
         const filledData = fillMissingDates(data.pageviews);
         setAnalyticsData(filledData)

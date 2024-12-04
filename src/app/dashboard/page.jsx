@@ -2,10 +2,13 @@
 import React, { useEffect, useState } from 'react'
 import CardDataStats from './components/tables/CardDataStats';
 import LineChart from './components/charts/LineChart';
+import Map from './components/Map/Map';
 
 function Page() {
 
     const [analyticsData, setAnalyticsData] = useState(null);
+
+    
 
     useEffect(() => {
         async function fetchData() {
@@ -130,7 +133,12 @@ function Page() {
 
     const skeletons = Array(4).fill(0);
 
-
+    function getFirstDayOfCurrentMonthTimestamp() {
+        const now = new Date();
+        const firstDay = new Date(now.getFullYear(), now.getMonth(), 1);
+        return firstDay.getTime();
+      }
+      const firstDayTimestamp = getFirstDayOfCurrentMonthTimestamp();
     
 
 
@@ -175,10 +183,10 @@ function Page() {
                 </div >
 
                 <div className="mt-4 grid grid-cols-12 gap-4 md:mt-6 md:gap-6 2xl:mt-7.5 2xl:gap-7.5">
-                    <LineChart />
+                    <LineChart firstDayTimestamp={firstDayTimestamp} />
                     {/* <ChartTwo /> */}
                     {/* <ChartThree /> */}
-                    {/* <MapOne /> */}
+                    <Map firstDayTimestamp={firstDayTimestamp} />
                     {/* <div className="col-span-12 xl:col-span-8">
                         <TableOne />
                     </div> */}

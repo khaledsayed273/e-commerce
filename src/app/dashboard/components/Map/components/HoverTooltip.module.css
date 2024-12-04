@@ -1,0 +1,8 @@
+.tooltip {
+    position: fixed;
+    pointer-events: none;
+    z-index: var(--z-index-popup);
+    transform: translate(-50%, calc(-100% - 5px));
+    color: white;
+    font-weight: bold;
+  }
