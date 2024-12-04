@@ -45,7 +45,7 @@ function ClientSide({ baseUrl }) {
                 const res = await req.json()
                 return setData(res)
             } catch (e) {
-                return e
+                return false
             } finally {
                 setLoading(false)
             }

@@ -7,9 +7,7 @@ import Map from './components/Map/Map';
 function Page() {
 
     const [analyticsData, setAnalyticsData] = useState(null);
-
     
-
     useEffect(() => {
         async function fetchData() {
             const timestamp = Date.now();

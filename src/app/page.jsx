@@ -13,7 +13,7 @@ const getProducts = async (skip) => {
     const res = await req.json()
     return res
   } catch (e) {
-    return e
+    return false
   }
 }
 

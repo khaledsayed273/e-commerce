@@ -17,7 +17,7 @@ function BestSellProducts({ baseUrl , title = "Flash Sales" }) {
                 return setProducts(productsRes)
 
             } catch (e) {
-                e
+                return false
             } finally {
                 setLoading(false)
             }
