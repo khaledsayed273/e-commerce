@@ -35,7 +35,7 @@ export default async function RootLayout({ children }) {
     <html style={{ scrollbarColor: "#A61C1C rgba(216, 215, 215, 0.438)", scrollbarWidth: "thin" }} lang="en">
       <Script
         defer
-        src="https://cloud.umami.is/script.js"
+        src="/src/app/api/umami/route.js"
         data-website-id="114e5419-ed6c-4dfa-a261-508da0110e36"
       ></Script>
       <ClientSideCode visitorId={visitorId} />
