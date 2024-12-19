@@ -38,7 +38,7 @@ function PriceAndQty({ cartsData, setCartsData, item }) {
                 cart.id === newObject.id ? newObject : cart
             );
             setCartsData(updatedCartsData);
-            localStorage.setItem("carts", JSON.stringify(updatedCartsData));
+            localStorage.setItem("cartsProducts", JSON.stringify(updatedCartsData));
         }
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [qty]);

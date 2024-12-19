@@ -7,9 +7,7 @@ import { Autoplay, Navigation } from 'swiper/modules';
 import Card from './Card';
 
 function SwiperComponent({ title, data }) {
-
     const swiperRef = useRef();
-
     return (
         <div>
             <div className='flex justify-between items-center mb-5'>

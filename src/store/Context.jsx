@@ -21,7 +21,7 @@ export default function ProviderContext({ children }) {
 
     useEffect(() => {
         if (typeof window !== "undefined") {
-            const storedCarts = localStorage.getItem("carts");
+            const storedCarts = localStorage.getItem("cartsProducts");
             setCartsData(storedCarts ? JSON.parse(storedCarts) : []);
         }
     }, []);
@@ -32,7 +32,7 @@ export default function ProviderContext({ children }) {
             const copyOfItem = Object.assign(item, { qty, total })
             const updatedCartsData = [...cartsData, copyOfItem];
             setCartsData(updatedCartsData);
-            localStorage.setItem("carts", JSON.stringify(updatedCartsData));
+            localStorage.setItem("cartsProducts", JSON.stringify(updatedCartsData));
             success("Item added successfully");
         } else {
             error("This Item already added");
@@ -44,7 +44,7 @@ export default function ProviderContext({ children }) {
             return items.id !== item.id
         })
         setCartsData(newCarts);
-        localStorage.setItem("carts", JSON.stringify(newCarts));
+        localStorage.setItem("cartsProducts", JSON.stringify(newCarts));
         success("Item deleted successfully");
     }
 

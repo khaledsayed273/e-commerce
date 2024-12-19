@@ -10,8 +10,6 @@ import HoverTooltip from './components/HoverTooltip';
 
 
 function Map({ firstDayTimestamp }) {
-
-
     const { countryNames } = useCountryNames("en-US");
     const [analyticsData, setAnalyticsData] = useState(null);
     const [tooltip, setTooltipPopup] = useState();
@@ -60,37 +58,37 @@ function Map({ firstDayTimestamp }) {
         }
         fetchData();
     }, []);
-    
+
     return (
         <div className='col-span-8'>
 
-                <ComposableMap className="bg-black/95" projection="geoMercator">
-                    <ZoomableGroup zoom={0.8} minZoom={0.7} center={[0, 40]}>
-                        <Geographies geography={MAP_FILE?.features}>
-                            {({ geographies }) => {
-                                return geographies.map(geo => {
-                                    const code = ISO_COUNTRIES[geo.id];
-                                    return (
-                                        <Geography
-                                            key={geo.rsmKey}
-                                            geography={geo}
-                                            fill={getFillColor(code)}
-                                            stroke={colors.map.strokeColor}
-                                            opacity={getOpacity(code)}
-                                            style={{
-                                                default: { outline: 'none' },
-                                                hover: { outline: 'none', fill: colors.map.hoverColor },
-                                                pressed: { outline: 'none' },
-                                            }}
-                                            onMouseOver={() => handleHover(code)}
-                                            onMouseOut={() => setTooltipPopup(null)}
-                                        />
-                                    );
-                                });
-                            }}
-                        </Geographies>
-                    </ZoomableGroup>
-                </ComposableMap>
+            <ComposableMap className="bg-black/95" projection="geoMercator">
+                <ZoomableGroup zoom={0.8} minZoom={0.7} center={[0, 40]}>
+                    <Geographies geography={MAP_FILE?.features}>
+                        {({ geographies }) => {
+                            return geographies.map(geo => {
+                                const code = ISO_COUNTRIES[geo.id];
+                                return (
+                                    <Geography
+                                        key={geo.rsmKey}
+                                        geography={geo}
+                                        fill={getFillColor(code)}
+                                        stroke={colors.map.strokeColor}
+                                        opacity={getOpacity(code)}
+                                        style={{
+                                            default: { outline: 'none' },
+                                            hover: { outline: 'none', fill: colors.map.hoverColor },
+                                            pressed: { outline: 'none' },
+                                        }}
+                                        onMouseOver={() => handleHover(code)}
+                                        onMouseOut={() => setTooltipPopup(null)}
+                                    />
+                                );
+                            });
+                        }}
+                    </Geographies>
+                </ZoomableGroup>
+            </ComposableMap>
 
             {tooltip && <HoverTooltip>{tooltip}</HoverTooltip>}
         </div>

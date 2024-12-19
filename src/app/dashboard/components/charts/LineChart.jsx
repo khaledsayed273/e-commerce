@@ -1,16 +1,13 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
+import style from "./LineChart.module.css"
 
 const Chart = dynamic(() => import("react-apexcharts"), {
   ssr: false,
 });
 
-
-
-
-
-const LineChart = ({firstDayTimestamp}) => {
+const LineChart = ({ firstDayTimestamp }) => {
   const [loading, setLoading] = useState(true)
   const [analyticsData, setAnalyticsData] = useState([]);
   const date = new Date();
@@ -30,7 +27,6 @@ const LineChart = ({firstDayTimestamp}) => {
       data: analyticsData.map((item) => item.y),
     },
   ]
-
 
   const options = {
     colors: ["#3C50E0", "#80CAEE"],
@@ -59,7 +55,7 @@ const LineChart = ({firstDayTimestamp}) => {
       //   formatter: function (val, index) {
       //     const day = analyticsData.map((_, i)  => i);
       //     console.log(val);
-          
+
       //     return day % 2 !== 0 ? val : "";
       //   }
       // }
@@ -101,8 +97,6 @@ const LineChart = ({firstDayTimestamp}) => {
     },
   };
 
-
-
   function fillMissingDates(data) {
 
     const pushData = [];
@@ -128,13 +122,10 @@ const LineChart = ({firstDayTimestamp}) => {
   };
 
   const timeZone = getTimeZone()
-  
-
 
   useEffect(() => {
     async function fetchData() {
       const timestamp = Date.now();
-     
       try {
         const response = await fetch(`/api/getPageviews?endAt=${timestamp}&startAt=${firstDayTimestamp}&timeZone=${timeZone}`);
         if (!response.ok) {
@@ -160,6 +151,7 @@ const LineChart = ({firstDayTimestamp}) => {
           <div className="h-[500px] w-full animate-pulse bg-gray-200 dark:bg-gray-700 rounded-md"></div>
         ) : (
           <Chart
+            className={`${style.text}`}
             options={options}
             series={series}
             type="bar"

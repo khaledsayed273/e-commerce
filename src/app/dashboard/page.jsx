@@ -7,7 +7,7 @@ import Map from './components/Map/Map';
 function Page() {
 
     const [analyticsData, setAnalyticsData] = useState(null);
-    
+
     useEffect(() => {
         async function fetchData() {
             const timestamp = Date.now();
@@ -135,10 +135,8 @@ function Page() {
         const now = new Date();
         const firstDay = new Date(now.getFullYear(), now.getMonth(), 1);
         return firstDay.getTime();
-      }
-      const firstDayTimestamp = getFirstDayOfCurrentMonthTimestamp();
-    
-
+    }
+    const firstDayTimestamp = getFirstDayOfCurrentMonthTimestamp();
 
     return (
         <main className='min-h-screen'>
