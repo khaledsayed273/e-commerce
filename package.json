@@ -20,7 +20,6 @@
     "next": "^15.1.2",
     "react": "^19.0.0-rc.1",
     "react-apexcharts": "^1.6.0",
-    "react-basics": "^0.125.0",
     "react-countup": "^6.5.3",
     "react-dom": "^19.0.0-rc.1",
     "react-paginate": "^8.2.0",
