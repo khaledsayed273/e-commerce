@@ -18,7 +18,6 @@ const nextConfig = {
         ],
     },
     experimental: {
-        reactCompiler: true,
         optimizePackageImports: ['swiper/react', 'swiper/modules', 'gsap', 'react-countup'],
     },
     rewrites: async () => {
