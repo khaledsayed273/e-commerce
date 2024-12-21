@@ -48,6 +48,7 @@ export default async function RootLayout({ children }) {
           {categoriesData !== false && (
             <Nav categoriesData={categoriesData} />
           )}
+          
           <ToastContainer />
           {children}
           <Footer />
